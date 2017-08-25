@@ -69,7 +69,7 @@ public class GenericDAO<T, ID extends Serializable> implements IGenericDAO<T, ID
 			query.setParameter(i + 1, params[i]);
 		}
 
-		final List<T> result = (List<T>) query.getResultList();
+		final List<T> result = query.getResultList();
 		return result;
 	}
 
@@ -82,7 +82,7 @@ public class GenericDAO<T, ID extends Serializable> implements IGenericDAO<T, ID
 			query.setParameter(param.getKey(), param.getValue());
 		}
 
-		final List<T> result = (List<T>) query.getResultList();
+		final List<T> result = query.getResultList();
 
 		return result;
 	}
@@ -101,7 +101,7 @@ public class GenericDAO<T, ID extends Serializable> implements IGenericDAO<T, ID
 
 		return (Integer) crit.list().get(0);
 	}
-	
+
 	private void initTransaction() {
 		if (transaction == null) {
 			transaction = getEntityManager().getTransaction();
@@ -147,7 +147,7 @@ public class GenericDAO<T, ID extends Serializable> implements IGenericDAO<T, ID
 			if (transaction.isActive()) {
 				transaction.commit();
 			}
-		}catch(Exception e){
+		} catch (Exception e) {
 			if (transaction.isActive()) {
 				transaction.setRollbackOnly();
 			}
@@ -156,7 +156,7 @@ public class GenericDAO<T, ID extends Serializable> implements IGenericDAO<T, ID
 
 	@Override
 	public void remove(ID id) {
-		getEntityManager().remove(this.findById(id));
+		this.remove(this.findById(id));
 	}
 
 	/**
@@ -164,6 +164,7 @@ public class GenericDAO<T, ID extends Serializable> implements IGenericDAO<T, ID
 	 *
 	 * @param entityManager
 	 */
+	@Override
 	@PersistenceContext
 	public void setEntityManager(final EntityManager entityManager) {
 		this.entityManager = entityManager;
@@ -207,7 +208,7 @@ public class GenericDAO<T, ID extends Serializable> implements IGenericDAO<T, ID
 
 	/**
 	 * Get counts by Criteria
-	 * 
+	 *
 	 * @param criterion
 	 * @return int
 	 */
