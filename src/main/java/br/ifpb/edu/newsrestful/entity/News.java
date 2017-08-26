@@ -16,39 +16,38 @@ import org.hibernate.annotations.CreationTimestamp;
 @Entity
 @XmlRootElement
 public class News {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
+
 	@Column
 	private String author;
-	
+
 	@Column
 	private String title;
-	
+
 	@CreationTimestamp
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date date;
-	
-	@Column(columnDefinition="text")
+
+	@Column(columnDefinition = "text")
 	private String content;
-	
-	
+
 	public News() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public News(String title,String content,Date date, String author) {
+	public News(String title, String content, Date date, String author) {
 		super();
 		this.author = author;
 		this.title = title;
 		this.date = date;
 		this.content = content;
 	}
-	
-	public News(String title, String content,String author) {
+
+	public News(String title, String content, String author) {
 		super();
 		this.author = author;
 		this.title = title;
@@ -94,6 +93,11 @@ public class News {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "News [id=" + id + ", author=" + author + ", title=" + title + ", date=" + date + ", content=" + content
+				+ "]";
+	}
+
 }
